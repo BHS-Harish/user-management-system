@@ -6,7 +6,7 @@ const BASE_URL = import.meta.env.VITE_BASE_URL
 
 export const loginUser = async (email, password, navigate, api, message) => {
     message.info("Logging In...")
-    await axios.post(`${BASE_URL}api/login`, { email, password }).then((res) => {
+    await axios.post(`${BASE_URL}/api/login`, { email, password }).then((res) => {
         localStorage.setItem("authToken", res.data?.token)
         api.success({
             message: "Success",
@@ -30,7 +30,7 @@ export const loginUser = async (email, password, navigate, api, message) => {
 export const getUsers = async (page, dispatch, api, message) => {
     message.info("Fetching data...")
     dispatch(setLoadingSuccess())
-    await axios.get(`${BASE_URL}api/users?page=${page}`).then((res) => {
+    await axios.get(`${BASE_URL}/api/users?page=${page}`).then((res) => {
         message.destroy()
         let data = { ...res.data }
         delete data?.data
@@ -63,7 +63,7 @@ export const logoutUser = (dispatch, navigate, api) => {
 
 export const deleteUser = async (id, dispatch, api, message) => {
     message.info("Deleting...")
-    await axios.delete(`${BASE_URL}api/users/${id}`).then((res) => {
+    await axios.delete(`${BASE_URL}/api/users/${id}`).then((res) => {
         if (res.status === 204)
             api.success({
                 message: "Info",
@@ -86,7 +86,7 @@ export const deleteUser = async (id, dispatch, api, message) => {
 export const editUser = async (id, data, api, message) => {
     var result=false
     message.info("Updating...")
-    await axios.put(`${BASE_URL}api/users/${id}`,data).then((res) => {
+    await axios.put(`${BASE_URL}/api/users/${id}`,data).then((res) => {
         if (res.status === 204)
             api.success({
                 message: "Info",
